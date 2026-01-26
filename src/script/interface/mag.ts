@@ -21,6 +21,11 @@ export interface IMag {
     readonly mind: number
     readonly level: number
 
+    readonly defProgress: number
+    readonly powProgress: number
+    readonly dexProgress: number
+    readonly mindProgress: number
+
     readonly checkEvolution: boolean
 
     feed(stats: MagStats): void

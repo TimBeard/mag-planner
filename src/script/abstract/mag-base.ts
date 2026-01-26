@@ -103,6 +103,22 @@ export abstract class MagBase implements IMag {
         return Math.floor(this._mind / 100)
     }
 
+    get defProgress(): number {
+        return this._def % 100
+    }
+
+    get powProgress(): number {
+        return this._pow % 100
+    }
+
+    get dexProgress(): number {
+        return this._dex % 100
+    }
+
+    get mindProgress(): number {
+        return this._mind % 100
+    }
+
     get level(): number {
         return this.def + this.pow + this.dex + this.mind
     }
