@@ -4,6 +4,9 @@ export type MagStats = [number, number, number, number, number, number]
 
 export enum MagName {
     MAG = 'Mag',
+    VARUNA = 'Varuna',
+    KALKI = 'Kalki',
+    VRITRA = 'Vritra',
 }
 
 export interface IMag {
