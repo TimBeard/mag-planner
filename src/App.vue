@@ -6,7 +6,7 @@
         </div>
 
         <div class="right-panel">
-            <PlayerSelector :player="player" @update:player="onPlayerUpdate" />
+            <PlayerSelector :player="player" />
             <FeedButtons
                 :mag="mag"
                 @feed="handleFeed"
@@ -31,10 +31,6 @@ const player = reactive(new Player(PlayerClass.HUMAR, SectionId.VIRIDIA))
 
 const { mag, feedMag } = useMag()
 const { hoveredItem, preview, previewItem, clearPreview } = useFeedPreview(mag)
-
-function onPlayerUpdate(): void {
-    // Le player est déjà réactif, rien à faire
-}
 
 function handleFeed(item: FeedData): void {
     feedMag(item, player)

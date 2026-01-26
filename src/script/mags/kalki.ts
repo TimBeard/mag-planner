@@ -1,5 +1,5 @@
 import { type IMag, MagName, type MagStats } from '../interface/mag'
-import type { Player } from '../interface/player'
+// import type { Player } from '../interface/player'
 
 import { MagBase } from '../abstract/mag-base'
 import { FEED_TABLE_1 } from '../data/feed-tables'
@@ -14,7 +14,7 @@ export class Kalki extends MagBase {
         return false // TODO: évolution vers stage 2
     }
 
-    doEvolve(player: Player): IMag {
+    doEvolve(/* player: Player */): IMag {
         // TODO: implémenter l'évolution vers stage 2
         return this
     }

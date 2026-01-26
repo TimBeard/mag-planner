@@ -13,6 +13,7 @@
         "check:fix": "biome check --write ."
     },
     "dependencies": {
+        "@awesome.me/webawesome": "^3.1.0",
         "vue": "^3.5.27"
     },
     "devDependencies": {

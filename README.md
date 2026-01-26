@@ -2,6 +2,8 @@
 
 A Mag evolution planner and simulator for Phantasy Star Online. This tool allows you to plan and simulate Mag raising without the time constraints of the actual game.
 
+**[🚀 Try the live demo](https://timbeard.github.io/mag-planner/)**
+
 ## What is a Mag?
 
 In Phantasy Star Online, a Mag is a companion creature that evolves based on how you feed it. Each Mag has stats (DEF, POW, DEX, MIND) that grow through feeding, and these stats determine which evolution path the Mag will take. Managing a Mag's growth requires careful planning and patience.
