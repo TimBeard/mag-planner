@@ -1,8 +1,10 @@
 import type { IMag, MagName, MagStats } from '../interface/mag'
 import type { Player } from '../interface/player'
+import type { FeedData } from '../data/feed-tables'
 
 export abstract class MagBase implements IMag {
     private _name: MagName
+    protected _feedTable: FeedData[] = []
 
     private _synchro: number
     private _iq: number
@@ -77,6 +79,10 @@ export abstract class MagBase implements IMag {
 
     get name(): MagName {
         return this._name
+    }
+
+    get feedTable(): FeedData[] {
+        return this._feedTable
     }
 
     get synchro(): number {

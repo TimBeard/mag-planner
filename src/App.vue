@@ -47,15 +47,24 @@
         <div class="stats">
             <div class="stat-row">
                 <span class="stat-label">Level:</span>
-                <span class="stat-value">{{ mag.level }}</span>
+                <span class="stat-value">
+                    {{ mag.level }}
+                    <span v-if="preview.levelChange !== 0" class="preview-change">{{ preview.levelChange > 0 ? `(+${preview.levelChange})` : `(${preview.levelChange})` }}</span>
+                </span>
             </div>
             <div class="stat-row">
                 <span class="stat-label">Synchro:</span>
-                <span class="stat-value">{{ mag.synchro }}%</span>
+                <span class="stat-value">
+                    {{ mag.synchro }}%
+                    <span v-if="preview.synchroChange !== 0" class="preview-change">{{ preview.synchroChange > 0 ? `(+${preview.synchroChange})` : `(${preview.synchroChange})` }}</span>
+                </span>
             </div>
             <div class="stat-row">
                 <span class="stat-label">IQ:</span>
-                <span class="stat-value">{{ mag.iq }}</span>
+                <span class="stat-value">
+                    {{ mag.iq }}
+                    <span v-if="preview.iqChange !== 0" class="preview-change">{{ preview.iqChange > 0 ? `(+${preview.iqChange})` : `(${preview.iqChange})` }}</span>
+                </span>
             </div>
 
             <div class="stat-row">
@@ -133,13 +142,13 @@ import { reactive, ref, computed } from 'vue'
 import type { IMag } from './script/interface/mag'
 import { Player, PlayerClass, SectionId } from './script/interface/player'
 import { Mag } from './script/mags/mag'
-import { FEED_TABLE_0, feedDataToMagStats, type FeedData } from './script/data/feed-tables'
+import { feedDataToMagStats, type FeedData } from './script/data/feed-tables'
 
 const selectedClass = ref(PlayerClass.HUMAR)
 const selectedSectionId = ref(SectionId.VIRIDIA)
 const player = reactive(new Player(selectedClass.value, selectedSectionId.value))
 
-let mag: IMag = reactive(new Mag())
+const mag = ref<IMag>(reactive(new Mag()))
 const hoveredItem = ref<FeedData | null>(null)
 
 function onClassChange(): void {
@@ -150,15 +159,17 @@ function onSectionIdChange(): void {
     player.sectionId = selectedSectionId.value
 }
 
-const feedItems = FEED_TABLE_0
+const feedItems = computed(() => {
+    return mag.value.feedTable
+})
 
 function feedMag(item: FeedData): void {
     const stats = feedDataToMagStats(item)
 
-    mag.feed(stats)
+    mag.value.feed(stats)
 
-    if (mag.checkEvolution) {
-        mag = reactive(mag.doEvolve(player))
+    if (mag.value.checkEvolution) {
+        mag.value = reactive(mag.value.doEvolve(player))
     }
 }
 
@@ -181,14 +192,17 @@ const preview = computed(() => {
             powLevel: 0,
             dexLevel: 0,
             mindLevel: 0,
+            levelChange: 0,
+            iqChange: 0,
+            synchroChange: 0,
         }
     }
 
     const item = hoveredItem.value
-    const currentDef = mag.defProgress
-    const currentPow = mag.powProgress
-    const currentDex = mag.dexProgress
-    const currentMind = mag.mindProgress
+    const currentDef = mag.value.defProgress
+    const currentPow = mag.value.powProgress
+    const currentDex = mag.value.dexProgress
+    const currentMind = mag.value.mindProgress
 
     const newDef = Math.max(0, Math.min(100, currentDef + item.def))
     const newPow = Math.max(0, Math.min(100, currentPow + item.pow))
@@ -201,6 +215,9 @@ const preview = computed(() => {
     const dexLevel = Math.floor((currentDex + item.dex) / 100) - Math.floor(currentDex / 100)
     const mindLevel = Math.floor((currentMind + item.mind) / 100) - Math.floor(currentMind / 100)
 
+    // Calculer le changement total de niveau
+    const levelChange = defLevel + powLevel + dexLevel + mindLevel
+
     return {
         defProgress: newDef,
         powProgress: newPow,
@@ -210,6 +227,9 @@ const preview = computed(() => {
         powLevel,
         dexLevel,
         mindLevel,
+        levelChange,
+        iqChange: item.iq,
+        synchroChange: item.synchro,
     }
 })
 </script>

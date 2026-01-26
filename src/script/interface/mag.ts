@@ -1,4 +1,5 @@
 import type { Player } from './player'
+import type { FeedData } from '../data/feed-tables'
 
 export type MagStats = [number, number, number, number, number, number]
 
@@ -11,6 +12,7 @@ export enum MagName {
 
 export interface IMag {
     readonly name: MagName
+    readonly feedTable: FeedData[]
 
     readonly synchro: number
     readonly iq: number

@@ -2,10 +2,12 @@ import { type IMag, MagName, type MagStats } from '../interface/mag'
 import type { Player } from '../interface/player'
 
 import { MagBase } from '../abstract/mag-base'
+import { FEED_TABLE_1 } from '../data/feed-tables'
 
 export class Kalki extends MagBase {
     constructor(stats: MagStats) {
         super(MagName.KALKI, stats)
+        this._feedTable = FEED_TABLE_1
     }
 
     get checkEvolution(): boolean {
